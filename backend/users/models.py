@@ -1,5 +1,6 @@
-# LeoneLibrary/users/models.py
+# backend/users/models.py
 from django.db import models
+
 
 class User(models.Model):
     email: models.EmailField()
