@@ -16,11 +16,12 @@ class Publisher(models.Model):
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
-    language = models.CharField(max_length=50)
-
     authors = models.ManyToManyField(Author)
-    publisher = models.ManyToManyField(Publisher)
-    publish_date = models.DateField()
-
-    isbn = models.CharField(max_length=13, unique=True)
     work_id = models.CharField(max_length=50, unique=True)
+
+class Edition(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    publisher = models.ForeignKey(Publisher, on_delete=models.SET_NULL, null=True)
+    publish_date = models.DateField(null=True, blank=True)
+    language = models.CharField(max_length=50)
+    isbn = models.CharField(max_length=17, unique=True)

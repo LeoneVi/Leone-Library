@@ -10,6 +10,13 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
+  server: {
+    proxy: {
+      '/_allauth': 'http://127.0.0.1:8000',
+      '/accounts': 'http://127.0.0.1:8000',
+      '/api': 'http://127.0.0.1:8000',
+    },
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

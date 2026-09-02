@@ -1,0 +1,4 @@
+Django==5.2.17
+djangorestframework==3.18.0
+django-allauth[headless]==65.19.2
+python-dotenv==1.2.3
