@@ -41,3 +41,26 @@ npm run dev
 npm run build
 ```
 # Leone-Library
+
+
+Start up frontend
+```
+/frontend
+npm run dev
+```
+
+First backend startup
+```
+python3 -m venv .venv
+source .venv/bin/activate
+
+python -m pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+Start up backend afterwards
+```
+/backend
+python3 manage.py runserver
+```
