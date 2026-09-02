@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import lionShieldSvg from '@/assets/lion-shield.svg'
+import lionShieldSvg from '@/assets/icons/lion-shield.svg'
 </script>
 
 <template>
@@ -20,13 +20,13 @@ import lionShieldSvg from '@/assets/lion-shield.svg'
 .brand-logo {
   display: inline-flex;
   align-items: center;
-  gap: 0.625rem;
+  gap: 0.225rem;
   color: inherit;
   text-decoration: none;
 }
 
 .brand-logo__name {
-  font-size: clamp(1.125rem, 1rem + 0.4vw, 1.5rem);
+  font-size: var(--font-size-3xl);
   font-weight: 800;
   letter-spacing: -0.035em;
   line-height: 1;

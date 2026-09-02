@@ -1,18 +1,20 @@
 :root {
   /* Brand palette */
-  --color-dark: #17252a;
-  --color-primary: #2b7a78;
-  --color-accent: #3aafa9;
-  --color-light: #def2f1;
+  --color-dark: #250902;
+  --color-primary: #800020;
+  --color-primary-hover: #a52a2a;
+  --color-error: #b22222;
+  --color-accent-soft: #cd5c5c;
+  --color-accent: #d2691e;
   --color-white: #feffff;
 
   /* Semantic colors */
   --color-background: var(--color-white);
-  --color-surface: var(--color-light);
+  --color-surface: var(--color-white);
   --color-text: var(--color-dark);
   --color-heading: var(--color-dark);
   --color-link: var(--color-primary);
-  --color-border: var(--color-accent);
+  --color-border: var(--color-accent-soft);
   --color-focus: var(--color-accent);
 
   /* Typography */
@@ -48,8 +50,8 @@
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 1rem;
-  --shadow-sm: 0 0.125rem 0.5rem rgb(23 37 42 / 8%);
-  --shadow-md: 0 0.75rem 2rem rgb(23 37 42 / 12%);
+  --shadow-sm: 0 0.125rem 0.5rem rgb(37 9 2 / 8%);
+  --shadow-md: 0 0.75rem 2rem rgb(37 9 2 / 12%);
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
 

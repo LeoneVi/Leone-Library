@@ -64,3 +64,9 @@ Start up backend afterwards
 /backend
 python3 manage.py runserver
 ```
+
+Run storybook
+```
+cd frontend
+npm run storybook
+```
