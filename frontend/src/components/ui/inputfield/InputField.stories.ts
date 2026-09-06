@@ -11,10 +11,8 @@ const meta = {
     label: 'Email address',
     type: 'email',
     placeholder: 'reader@example.com',
-    autocomplete: 'email',
     required: false,
     disabled: false,
-    readonly: false,
   },
 } satisfies Meta<typeof InputField>
 
@@ -28,7 +26,6 @@ export const WithHint: Story = {
     id: 'password',
     label: 'Password',
     type: 'password',
-    autocomplete: 'new-password',
     hint: 'Use at least eight characters.',
   },
 }
