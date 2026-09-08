@@ -1,17 +1,38 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
 import InputField from "@/components/ui/inputfield/InputField.vue";
 import Button from "@/components/ui/button/Button.vue";
-import { ref } from "vue";
+import { loginAuth } from '@/components/auth/auth.ts'
 
 const form = ref({
   email: "",
   password: "",
 });
 
-function submitLogin() {
+const router = useRouter()
+const formError = ref('')
+
+async function submitLogin() {
   console.log(form.value);
 
-  // TODO add Django backend
+  // Django backend
+  try {
+    const result = await loginAuth({
+      email: form.value.email,
+      password: form.value.password,
+    })
+
+    if (result.status === 200) { // user successfully logins
+      const username = result.body.data.user.username
+
+      await router.push(`/user/${username}`) //redirect to user page
+      return
+    }
+  } catch {
+    formError.value = 'Could not connect to the server.'
+  }
 }
 </script>
 

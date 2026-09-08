@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { ref } from "vue";
+
 import InputField from "@/components/ui/inputfield/InputField.vue";
 import Button from "@/components/ui/button/Button.vue";
-import { ref } from "vue";
+import { signupAuth } from '@/components/auth/auth.ts'
 
 const form = ref({
   email: "",
@@ -12,7 +14,7 @@ const form = ref({
 
 const passwordError = ref("")
 
-function submitSignup() {
+async function submitSignup() {
   console.log(form.value);
 
   passwordError.value = "";
@@ -22,8 +24,15 @@ function submitSignup() {
     passwordError.value = "Passwords do not match";
     return;
   }
-  // TODO add Django backend
+  const result = await signupAuth({
+    username: form.value.username,
+    email: form.value.email,
+    password: form.value.password,
+  })
+
+  console.log(result)
 }
+
 </script>
 
 <template>
@@ -33,7 +42,7 @@ function submitSignup() {
         <h2 class="signup-form__title">Create Account</h2>
       </div>
 
-      <form class="signup-form__form" @submit.prevent="submitSignup">
+      <form class="signup-form__form" method="post" @submit.prevent="submitSignup">
         <InputField
             id="signup-email"
             v-model="form.email"
