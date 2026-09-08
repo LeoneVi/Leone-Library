@@ -5,13 +5,20 @@ import { ref } from "vue";
 
 const form = ref({
   email: "",
+  username: "",
   password: "",
   confirmPassword: "",
 });
 
-function SignupForm() {
+const passwordError = ref("")
+
+function submitSignup() {
   console.log(form.value);
 
+  // ensure both passwords are the same
+  if(form.value.password !== form.value.confirmPassword) {
+    passwordError.value = "Passwords do not match";
+  }
   // TODO add Django backend
 }
 </script>
@@ -23,15 +30,21 @@ function SignupForm() {
         <h2 class="signup-form__title">Create Account</h2>
       </div>
 
-      <form class="signup-form__form" @submit.prevent="SignupForm">
+      <form class="signup-form__form" @submit.prevent="submitSignup">
         <InputField
             id="signup-email"
             v-model="form.email"
             label="Email"
             type="email"
             placeholder="Enter your email"
-            autocomplete="email"
-            required
+        />
+
+        <InputField
+            id="signup-username"
+            v-model="form.email"
+            label="Username"
+            type="text"
+            placeholder="Enter your username"
         />
 
         <InputField
@@ -40,8 +53,6 @@ function SignupForm() {
             label="Password"
             type="password"
             placeholder="Enter your password"
-            autocomplete="new-password"
-            required
         />
 
         <InputField
@@ -50,8 +61,7 @@ function SignupForm() {
             label="Confirm Password"
             type="password"
             placeholder="Confirm your password"
-            autocomplete="new-password"
-            required
+            :error="passwordError"
         />
 
         <Button type="submit" variant="primary">

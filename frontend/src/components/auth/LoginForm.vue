@@ -8,7 +8,7 @@ const form = ref({
   password: "",
 });
 
-function LoginForm() {
+function submitLogin() {
   console.log(form.value);
 
   // TODO add Django backend
@@ -22,7 +22,7 @@ function LoginForm() {
         <h2 class="login-form__title">Welcome Back</h2>
       </div>
 
-      <form class="login-form__form" @submit.prevent="LoginForm">
+      <form class="login-form__form" @submit.prevent="submitLogin">
         <InputField
             id="login-email"
             v-model="form.email"
@@ -30,7 +30,6 @@ function LoginForm() {
             type="email"
             placeholder="Enter your email"
             autocomplete="email"
-            required
         />
 
         <InputField
@@ -40,7 +39,6 @@ function LoginForm() {
             type="password"
             placeholder="Enter your password"
             autocomplete="current-password"
-            required
         />
 
         <Button type="submit" variant="primary">
