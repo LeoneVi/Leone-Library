@@ -47,7 +47,14 @@ function LoginForm() {
           Login
         </Button>
       </form>
+
+      <p class="login-form__signup">
+        Don't have an account?
+        <a href="/signup">Sign up</a>
+      </p>
+
     </div>
+
   </div>
 </template>
 
@@ -90,5 +97,23 @@ function LoginForm() {
 .login-form__form :deep(button) {
   width: 100%;
   margin-top: var(--space-2);
+}
+
+.login-form__signup {
+  padding-top: var(--space-4);
+  margin: 0;
+  color: var(--color-primary-hover);
+  font-size: var(--font-size-sm);
+  text-align: center;
+}
+
+.login-form__signup a {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+}
+
+.login-form__signup a:hover {
+  text-decoration: underline;
 }
 </style>
