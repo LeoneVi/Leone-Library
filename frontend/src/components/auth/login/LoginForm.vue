@@ -22,7 +22,7 @@ function submitLogin() {
         <h2 class="login-form__title">Welcome Back</h2>
       </div>
 
-      <form class="login-form__form" @submit.prevent="submitLogin">
+      <form class="login-form__form" method="post" @submit.prevent="submitLogin">
         <InputField
             id="login-email"
             v-model="form.email"

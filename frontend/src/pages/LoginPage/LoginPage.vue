@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import SiteHeader from '@/components/Header.vue'
-import LoginForm from '@/components/auth/LoginForm.vue'
+import LoginForm from '@/components/auth/login/LoginForm.vue'
 </script>
 
 <template>
@@ -18,7 +18,6 @@ import LoginForm from '@/components/auth/LoginForm.vue'
   display: grid;
   grid-template-rows: auto 1fr;
   min-height: 100vh;
-  min-height: 100dvh;
   background: var(--color-background);
 }
 

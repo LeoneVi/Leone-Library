@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import SiteHeader from '@/components/Header.vue'
-import SignupForm from '@/components/auth/SignupForm.vue'
+import SignupForm from '@/components/auth/signup/SignupForm.vue'
 </script>
 
 <template>
