@@ -15,19 +15,23 @@ const router = useRouter()
 const formError = ref('')
 
 async function submitLogin() {
-  // Django backend
+  formError.value = ''
+
   try {
     const result = await loginAuth({
       email: form.value.email,
       password: form.value.password,
     })
 
-    if (result.status === 200) { // user successfully logins
+    if (result.status === 200) {
       const username = result.body.data.user.username
 
-      await router.push(`/user/${username}`) //redirect to user page
+      await router.push(`/user/${username}`)
       return
     }
+
+    formError.value =
+      result.body.errors?.[0]?.message ?? 'Email or password is incorrect.'
   } catch {
     formError.value = 'Could not connect to the server.'
   }
@@ -41,6 +45,10 @@ async function submitLogin() {
         <h2 class="login-form__title">Welcome Back</h2>
       </div>
 
+      <p v-if="formError" class="login-form__error" role="alert">
+        {{ formError }}
+      </p>
+
       <form class="login-form__form" method="post" @submit.prevent="submitLogin">
         <InputField
             id="login-email"
@@ -49,6 +57,7 @@ async function submitLogin() {
             type="email"
             placeholder="Enter your email"
             autocomplete="email"
+            required
         />
 
         <InputField
@@ -58,6 +67,7 @@ async function submitLogin() {
             type="password"
             placeholder="Enter your password"
             autocomplete="current-password"
+            required
         />
 
         <Button type="submit" variant="primary">
@@ -104,6 +114,12 @@ async function submitLogin() {
   margin: 0;
   color: var(--color-text);
   font-weight: var(--font-weight-bold);
+}
+
+.login-form__error {
+  margin: 0 0 var(--space-4);
+  color: var(--color-error);
+  text-align: center;
 }
 
 .login-form__form {

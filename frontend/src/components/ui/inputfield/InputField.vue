@@ -8,6 +8,7 @@ const props = withDefaults(
     name?: string
     type?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url'
     placeholder?: string
+    autocomplete?: string
     hint?: string
     error?: string
     required?: boolean
@@ -17,6 +18,7 @@ const props = withDefaults(
     type: 'text',
     name: undefined,
     placeholder: undefined,
+    autocomplete: undefined,
     hint: undefined,
     error: undefined,
     required: false,
@@ -51,6 +53,7 @@ const describedBy = computed(() => {
       :name="name ?? id"
       :type="type"
       :placeholder="placeholder"
+      :autocomplete="autocomplete"
       :required="required"
       :disabled="disabled"
       :aria-invalid="error ? 'true' : undefined"

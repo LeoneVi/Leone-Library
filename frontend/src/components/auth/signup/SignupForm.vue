@@ -15,10 +15,13 @@ const form = ref({
 
 const passwordError = ref("")
 const formError = ref("")
+const formMessage = ref("")
 const router = useRouter();
 
 async function submitSignup() {
   passwordError.value = "";
+  formError.value = "";
+  formMessage.value = "";
 
   // ensure both passwords are the same
   if(form.value.password !== form.value.confirmPassword) {
@@ -26,7 +29,6 @@ async function submitSignup() {
     return;
   }
 
-  // Django backend
   try {
     const result = await signupAuth({
       username: form.value.username,
@@ -34,20 +36,24 @@ async function submitSignup() {
       password: form.value.password,
     })
 
-    if (result.status == 200) {
+    if (result.status === 200) {
       const username = result.body.data.user.username
 
-      await router.push(`/user/${username}`) //redirect to user page
+      await router.push(`/user/${username}`)
       return
     }
 
-    if (result.status == 400) { // allauth errors
-      formError.value = "There was an error, try again";
+    if (result.status === 400) {
+      formError.value = result.body.errors?.[0]?.message ?? "Could not create account.";
+      return
     }
 
-    if(result.status == 401) { // verify email
-      // redirect to email verification page
+    if(result.status === 401) {
+      formMessage.value = "Check your email for a verification link.";
+      return
     }
+
+    formError.value = "Could not create account.";
 
   } catch {
     formError.value = "Could not connect to server."
@@ -63,6 +69,14 @@ async function submitSignup() {
         <h2 class="signup-form__title">Create Account</h2>
       </div>
 
+      <p v-if="formError" class="signup-form__error" role="alert">
+        {{ formError }}
+      </p>
+
+      <p v-if="formMessage" class="signup-form__message" role="status">
+        {{ formMessage }}
+      </p>
+
       <form class="signup-form__form" method="post" @submit.prevent="submitSignup">
         <InputField
             id="signup-email"
@@ -70,6 +84,8 @@ async function submitSignup() {
             label="Email"
             type="email"
             placeholder="Enter your email"
+            autocomplete="email"
+            required
         />
 
         <InputField
@@ -78,6 +94,8 @@ async function submitSignup() {
             label="Username"
             type="text"
             placeholder="Enter your username"
+            autocomplete="username"
+            required
         />
 
         <InputField
@@ -86,6 +104,8 @@ async function submitSignup() {
             label="Password"
             type="password"
             placeholder="Enter your password"
+            autocomplete="new-password"
+            required
         />
 
         <InputField
@@ -94,6 +114,8 @@ async function submitSignup() {
             label="Confirm Password"
             type="password"
             placeholder="Confirm your password"
+            autocomplete="new-password"
+            required
             :error="passwordError"
         />
 
@@ -141,6 +163,16 @@ async function submitSignup() {
   margin: 0;
   color: var(--color-text);
   font-weight: var(--font-weight-bold);
+}
+
+.signup-form__error,
+.signup-form__message {
+  margin: 0 0 var(--space-4);
+  text-align: center;
+}
+
+.signup-form__error {
+  color: var(--color-error);
 }
 
 .signup-form__form {
