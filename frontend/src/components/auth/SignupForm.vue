@@ -15,9 +15,12 @@ const passwordError = ref("")
 function submitSignup() {
   console.log(form.value);
 
+  passwordError.value = "";
+
   // ensure both passwords are the same
   if(form.value.password !== form.value.confirmPassword) {
     passwordError.value = "Passwords do not match";
+    return;
   }
   // TODO add Django backend
 }
@@ -41,7 +44,7 @@ function submitSignup() {
 
         <InputField
             id="signup-username"
-            v-model="form.email"
+            v-model="form.username"
             label="Username"
             type="text"
             placeholder="Enter your username"
