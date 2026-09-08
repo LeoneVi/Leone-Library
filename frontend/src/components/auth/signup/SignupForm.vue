@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from 'vue-router'
 
 import InputField from "@/components/ui/inputfield/InputField.vue";
 import Button from "@/components/ui/button/Button.vue";
@@ -13,10 +14,10 @@ const form = ref({
 });
 
 const passwordError = ref("")
+const formError = ref("")
+const router = useRouter();
 
 async function submitSignup() {
-  console.log(form.value);
-
   passwordError.value = "";
 
   // ensure both passwords are the same
@@ -24,13 +25,33 @@ async function submitSignup() {
     passwordError.value = "Passwords do not match";
     return;
   }
-  const result = await signupAuth({
-    username: form.value.username,
-    email: form.value.email,
-    password: form.value.password,
-  })
 
-  console.log(result)
+  // Django backend
+  try {
+    const result = await signupAuth({
+      username: form.value.username,
+      email: form.value.email,
+      password: form.value.password,
+    })
+
+    if (result.status == 200) {
+      const username = result.body.data.user.username
+
+      await router.push(`/user/${username}`) //redirect to user page
+      return
+    }
+
+    if (result.status == 400) { // allauth errors
+      formError.value = "There was an error, try again";
+    }
+
+    if(result.status == 401) { // verify email
+      // redirect to email verification page
+    }
+
+  } catch {
+    formError.value = "Could not connect to server."
+  }
 }
 
 </script>

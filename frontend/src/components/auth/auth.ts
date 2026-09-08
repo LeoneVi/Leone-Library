@@ -40,7 +40,8 @@ export async function loginAuth(credentials: {
     email: string
     password: string
 }) {
-    // ensure that Django has provided the CSRF cookie.
+
+    // request allauth to provide a CSRF cookie.
     await fetch('/_allauth/browser/v1/auth/session', {
         credentials: 'include',
     })
@@ -55,6 +56,33 @@ export async function loginAuth(credentials: {
             'X-CSRFToken': csrfToken,
         },
         body: JSON.stringify(credentials),
+    })
+
+    const body = await response.json()
+
+    return {
+        status: response.status,
+        body,
+    }
+}
+
+export async function verifyEmailAuth(key: string) {
+
+    // request allauth to provide a CSRF cookie.
+    await fetch('/_allauth/browser/v1/auth/session', {
+        credentials: 'include',
+    })
+
+    const csrfToken = getCookie('csrftoken')
+
+    const response = await fetch('/_allauth/browser/v1/auth/email/verify', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken,
+        },
+        body: JSON.stringify({ key }),
     })
 
     const body = await response.json()

@@ -15,8 +15,6 @@ const router = useRouter()
 const formError = ref('')
 
 async function submitLogin() {
-  console.log(form.value);
-
   // Django backend
   try {
     const result = await loginAuth({
