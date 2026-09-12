@@ -14,7 +14,7 @@ import Logo from '@/components/Logo.vue'
 .site-header {
   width: 100%;
   background: var(--color-background);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 2px solid var(--color-border);
 }
 
 .site-header__inner {

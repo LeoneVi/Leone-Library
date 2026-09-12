@@ -39,6 +39,6 @@ npm run storybook
 Run backend
 ```
 cd /LeoneLibrary/backend
-./.venv/bin/python manage.py migrate
-./.venv/bin/python manage.py runserver
+python manage.py migrate
+python manage.py runserver
 ```
