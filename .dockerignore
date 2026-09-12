@@ -5,23 +5,24 @@
 # -------------------------------
 # Dependency directories
 # -------------------------------
-node_modules/
+**/node_modules/
 
 # -------------------------------
 # Production and build outputs
 # -------------------------------
-dist/
-out/
-build/
+**/dist/
+**/out/
+**/build/
 public/build/
 
 # -------------------------------
 # Vite, VuePress, and cache dirs
 # -------------------------------
-.vite/
-.vitepress/
-.cache/
-.tmp/
+**/.vite/
+**/.vitepress/
+**/.cache/
+**/.tmp/
+**/storybook-static/
 
 # -------------------------------
 # Test output and coverage
@@ -84,6 +85,9 @@ docker-compose.override.yml
 # -------------------------------
 # Django backend
 # -------------------------------
-.venv/
-__pycache__/
+**/.venv/
+**/venv/
+**/__pycache__/
 *.pyc
+**/db.sqlite3
+**/db.sqlite3-journal
